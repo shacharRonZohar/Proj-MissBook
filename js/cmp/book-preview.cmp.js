@@ -16,7 +16,7 @@ export default {
 	computed: {
 		formattedPrice() {
 			const { listPrice } = this.book
-			console.log(listPrice)
+			// console.log(listPrice)
 			return utilService.getNumAsCurrency(listPrice.amount, listPrice.currencyCode)
 		},
 	},

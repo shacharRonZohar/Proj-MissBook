@@ -4,10 +4,13 @@ import { storageService } from './asyncStorage.js'
 export const bookService = {
 	put,
 	get,
+	add,
+	post,
 	query,
 	addReview,
 	removeReview,
 	getEmptyReview,
+	getBooksFromGoogle
 }
 
 const BOOKS_KEY = 'booksDB'
@@ -25,6 +28,9 @@ function put(book) {
 	return storageService.put(BOOKS_KEY, book)
 }
 
+function post(book) {
+	return storageService.post(BOOKS_KEY, book)
+}
 function removeReview(bookId, reviewId) {
 	return storageService.removeFromKey(BOOKS_KEY, bookId, 'reviews', reviewId)
 }
@@ -46,11 +52,57 @@ function addReview(bookId, review) {
 			return put(book)
 		})
 }
+
+function add(book) {
+	return _formatBookData(book.volumeInfo)
+		.then(formattedBook => post(formattedBook))
+
+}
+
+function getBooksFromGoogle(searchTerm) {
+	return Promise.resolve(localStorage.getItem('apiSample'))
+}
+
 function _createBooks() {
 	let books = utilService.load(BOOKS_KEY)
 	if (!books || !books.length) books = _getBooksData()
 	utilService.save(BOOKS_KEY, books)
 }
+
+function _formatBookData(book) {
+	const { title, subtitle, categories,
+		imageLinks, language, pageCount,
+		publishedDate } = book
+	return Promise.resolve({
+		title,
+		subtitle,
+		categories,
+		thumbnail: imageLinks.thumbnail,
+		language,
+		pageCount,
+		publishedDate,
+		listPrice: {
+			amount: 10,
+			currencyCode: 'ILS',
+			isOnSale: false,
+		}
+	})
+	// return Promise.resolve(book.volumeInfo)
+}
+
+// volumeInfo:(){
+
+// 	title:
+// 	subtitle:
+// 	categories:
+// 	description:
+// 	imageLinks.thumbnail:
+// 	language:
+// 	pageCount:
+// 	publishedDate:
+
+// }	
+
 function _getBooksData() {
 	return [
 		{
