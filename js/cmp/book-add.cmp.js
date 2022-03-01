@@ -1,4 +1,4 @@
-import { bookService } from "../services/bookService.js"
+import { bookService } from '../services/bookService.js'
 
 export default {
     props: [''],
@@ -10,7 +10,8 @@ export default {
             <ul v-if="books" class="books-list">
                 <span v-if="!books.length">No Books found :C</span>
                 <li v-for="book in books">{{book.volumeInfo.title}} 
-                    <button @click="addBook(book)">+</button></li>
+                    <button @click="addBook(book)">+</button>
+                </li>
             </ul>
         </section>
     `,
@@ -23,24 +24,14 @@ export default {
             books: null
         }
     },
-    created() {
-
-    },
-    unmounted() {
-
-    },
-
     methods: {
         searchBooks() {
             bookService.getBooksFromGoogle(this.searchTerm)
-                .then(res => this.books = JSON.parse(res).items)
+                .then(res => this.books = res.items)
         },
         addBook(book) {
-            bookService.add(book)
+            bookService.addGoogleBook(book)
                 .then(() => this.$emit('bookAdded'))
         }
-    },
-    computed: {
-
     },
 }

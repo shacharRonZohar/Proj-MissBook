@@ -6,9 +6,9 @@ import bookList from '../cmp/book-list.cmp.js'
 export default {
 	template: `
 		<section class="main-layout app-main">
-			<book-filter v-if="!selectedBook" @filtered="setFilter"></book-filter>
-        	<book-list v-if="!selectedBook" :books="booksToShow" @selected="selectBook"></book-list>
-        	<book-details @back="onBack" v-else></book-details>    
+			<book-filter @filtered="setFilter"></book-filter>
+        	<book-list :books="booksToShow" @bookAdded="getBooks"></book-list>
+        	<book-details @back="onBack"></book-details>    
 		</section>
     `,
 	components: {
@@ -19,23 +19,21 @@ export default {
 		return {
 			books: null,
 			filterBy: null,
-			selectedBook: null,
 		}
 	},
 	created() {
-		bookService.query()
-			.then(books => this.books = books)
+		this.getBooks()
 	},
 	methods: {
+		getBooks() {
+			bookService.query()
+				.then(books => this.books = books)
+		},
 		setFilter(filterBy) {
 			this.filterBy = filterBy
 		},
-		selectBook(id) {
-			this.selectedBook = this.books.find(book => book.id === id)
-			this.$emit('bookSelected')
-		},
 		onBack() {
-			this.selectedBook = null
+			// this.selectedBook = null
 		},
 	},
 	computed: {

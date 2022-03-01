@@ -5,8 +5,8 @@
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
-	height: 75vh;
-	overflow: scroll;
+	height: 70vh;
+	overflow-y: scroll;
 	margin-top: 20px;
 }
 

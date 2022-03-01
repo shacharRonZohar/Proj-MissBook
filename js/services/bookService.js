@@ -4,11 +4,11 @@ import { storageService } from './asyncStorage.js'
 export const bookService = {
 	put,
 	get,
-	add,
 	post,
 	query,
 	addReview,
 	removeReview,
+	addGoogleBook,
 	getEmptyReview,
 	getBooksFromGoogle
 }
@@ -22,6 +22,10 @@ function query() {
 
 function get(bookId) {
 	return storageService.get(BOOKS_KEY, bookId)
+		.then(book => {
+			console.log('test')
+			return _setNextPrevBookId(book)
+		})
 }
 
 function put(book) {
@@ -31,9 +35,11 @@ function put(book) {
 function post(book) {
 	return storageService.post(BOOKS_KEY, book)
 }
+
 function removeReview(bookId, reviewId) {
 	return storageService.removeFromKey(BOOKS_KEY, bookId, 'reviews', reviewId)
 }
+
 function getEmptyReview() {
 	return {
 		id: utilService.makeId(),
@@ -53,14 +59,16 @@ function addReview(bookId, review) {
 		})
 }
 
-function add(book) {
+function addGoogleBook(book) {
 	return _formatBookData(book.volumeInfo)
 		.then(formattedBook => post(formattedBook))
-
 }
 
 function getBooksFromGoogle(searchTerm) {
-	return Promise.resolve(localStorage.getItem('apiSample'))
+	const apiKey = 'AIzaSyCmNjCKBbUJzAkpJolc3q6MHYfH0CZsvRs'
+	searchTerm = searchTerm.replace(/\s/g, '+')
+	return fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`)
+		.then(res => res.json())
 }
 
 function _createBooks() {
@@ -69,17 +77,29 @@ function _createBooks() {
 	utilService.save(BOOKS_KEY, books)
 }
 
+function _setNextPrevBookId(book) {
+	return query(BOOKS_KEY)
+		.then(books => {
+			const bookIdx = books.findIndex(currBook => currBook.id === book.id)
+			book.nextBookId = (books[bookIdx + 1]) ? books[bookIdx + 1].id : books[0].id
+			book.prevBookId = (books[bookIdx - 1]) ? books[bookIdx - 1].id : books[books.length - 1].id
+			return book
+		})
+}
+
 function _formatBookData(book) {
 	const { title, subtitle, categories,
-		imageLinks, language, pageCount,
-		publishedDate } = book
+		description, imageLinks, language,
+		pageCount, publishedDate, authors } = book
 	return Promise.resolve({
 		title,
+		authors,
 		subtitle,
 		categories,
 		thumbnail: imageLinks.thumbnail,
 		language,
 		pageCount,
+		description,
 		publishedDate,
 		listPrice: {
 			amount: 10,
@@ -87,21 +107,7 @@ function _formatBookData(book) {
 			isOnSale: false,
 		}
 	})
-	// return Promise.resolve(book.volumeInfo)
 }
-
-// volumeInfo:(){
-
-// 	title:
-// 	subtitle:
-// 	categories:
-// 	description:
-// 	imageLinks.thumbnail:
-// 	language:
-// 	pageCount:
-// 	publishedDate:
-
-// }	
 
 function _getBooksData() {
 	return [

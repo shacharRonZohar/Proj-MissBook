@@ -40,6 +40,9 @@ export default {
 			<span>{{categoryLabel}}: {{formattedCategories}}</span>
 			<span>Language: {{book.language}}</span>
 			<span :class="priceColor">Price: {{formattedPrice}}</span>
+			<router-link :to="'/book/'+book.prevBookId">Prev Book</router-link> | 
+            <router-link :to="'/book/'+book.nextBookId">Next Book</router-link> | 
+            <router-link to="/book">Back to the list</router-link>
 		</section>
     `,
 	components: {
@@ -55,12 +58,25 @@ export default {
 			isReviewsOpen: false
 		}
 	},
-	created() {
-		const id = this.$route.params.bookId
-		bookService.get(id)
-			.then(book => this.book = book)
+	mounted() {
+		this.loadBook()
+	},
+	watch: {
+		'$route.params.bookId': {
+			handler() {
+				this.loadBook()
+			},
+			immediate: true,
+		}
 	},
 	methods: {
+		loadBook() {
+			const id = this.$route.params.bookId
+			if (id) {
+				bookService.get(id)
+					.then(book => this.book = book)
+			}
+		},
 		toggleLongTxt() {
 			this.longTxtOpen = !this.longTxtOpen
 		},

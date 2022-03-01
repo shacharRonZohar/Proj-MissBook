@@ -3,14 +3,14 @@ import bookAdd from './book-add.cmp.js'
 
 export default {
 	props: ['books'],
-	emits: ['selected'],
+	emits: ['bookAdded'],
 	template: `
         <section class="book-list">
-			<book-add/>
+			<book-add @bookAdded="$emit('bookAdded')"/>
             <ul class="gallery">
                 <li v-for="book in books" :key="book.id" class="book-preview-container">
 					<router-link :to="'/book/'+book.id">
-						<book-preview :book="book" @click="onSelected(book)"/>
+						<book-preview :book="book"/>
 					</router-link>
                 </li>
             </ul>
@@ -19,13 +19,5 @@ export default {
 	components: {
 		bookPreview,
 		bookAdd
-	},
-	data() {
-		return {}
-	},
-	methods: {
-		onSelected({ id }) {
-			this.$emit('selected', id)
-		},
 	},
 }
