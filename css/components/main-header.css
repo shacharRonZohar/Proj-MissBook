@@ -1,0 +1,27 @@
+.main-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	grid-row: 1/ span 2;
+}
+
+.main-header .logo {
+	color: #3a3939;
+	font-size: 2rem;
+	font-family: roboto-b, sans-serif;
+}
+
+.main-header .main-nav{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	gap: 4rem;
+}
+.main-header .line {
+	width: 100vw;
+	position: absolute;
+	height: 1px;
+	border-bottom: 1px solid gray;
+	top: 80px;
+	left: 0;
+}

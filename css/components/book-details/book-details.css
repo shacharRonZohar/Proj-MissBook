@@ -1,0 +1,84 @@
+.book-details {
+	background-color: lightgreen;
+	border-radius: 20px;
+	height: 80vh;
+	padding: 20px;
+	position: relative;
+	width: 80vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.book-details .modal article {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.book-details .modal article:not(:last-child) {
+	border-bottom: 1px solid lightgray;
+}
+
+.book-details .img-container {
+	height: 268px;
+}
+
+.book-details .description {
+	position: absolute;
+	top: 40%;
+	right: 20px;
+	max-width: 17ch;
+	height: 320px;
+	transform: translate(0, -50%);
+}
+
+.book-details .long-description-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: lightsalmon;
+	border-radius: 20px;
+	padding: 20px;
+}
+
+.book-details .detail {
+	text-align: center;
+}
+
+.book-details .sale-label {
+	position: absolute;
+	top: 63px;
+	left: -13px;
+	transform: rotate(317deg);
+	border-top: 1px solid red;
+	width: 200px;
+	text-align: center;
+	font-size: 2rem;
+}
+
+.book-details .sale-label::after {
+	content: '';
+	border-bottom: 1px solid red;
+	position: absolute;
+	bottom: 0;
+	width: 138%;
+	left: -18%;
+}
+
+
+.book-details .add-review form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: blue;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+}

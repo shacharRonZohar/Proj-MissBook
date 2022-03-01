@@ -1,0 +1,24 @@
+.btn {
+	display: inline-block;
+	outline: 0;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+	border-radius: 4px;
+	font-size: 13px;
+	height: 30px;
+	color: black;
+	background-color: gray;
+	padding: 0 20px;
+	transition: background-color 0.5s;
+}
+
+.btn:hover {
+	background-color: var(--clr1);
+}
+
+.btn.back {
+	position: fixed;
+	top: 26px;
+	right: 93px;
+}

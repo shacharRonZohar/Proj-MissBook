@@ -1,0 +1,91 @@
+@import url(modal-background.css);
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(19 17 139 / 95%);
+    padding: 20px;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    /* justify-content: center;
+    align-items: center; */
+    border-radius: 50px;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.75);
+    z-index: 100;
+
+}
+
+/* .modal .form-group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.modal .form-field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #2a0529;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.modal .form-field::placeholder {
+    color: transparent;
+}
+
+.modal .form-field:placeholder-shown~.form-label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+
+.modal .form-label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+    transition: color 0.5s;
+}
+
+.modal .form-label.red {
+    background-color: inherit;
+    color: red;
+}
+
+.modal .form-field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(90deg, rgba(114, 9, 121, 1) 28%, rgba(255, 0, 104, 1) 92%);
+    border-image-slice: 1;
+}
+
+.modal .form-field:focus~.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 700;
+} */
+
+/* reset input */
+/* .modal .form-field:required, .form-field:invalid {
+    box-shadow: none;
+}
+
+.modal .btn {
+    margin-top: 10px;
+} */

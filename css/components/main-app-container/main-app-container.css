@@ -1,0 +1,6 @@
+.main-app-container {
+	height: 100vh;
+	display: grid;
+	/* gap: 20px; */
+	grid-template: repeat(15, 1fr) / repeat(15, 1fr);
+}
